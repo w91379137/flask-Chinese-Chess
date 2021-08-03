@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 
 from app.model.chess import Chess
 
@@ -7,12 +7,15 @@ game = Chess()
 
 def create_app(test_config = None):
     app = Flask(__name__)
-
     
     # 首頁設定
-    @app.route('/')
-    @app.route('/index')
+    @app.route('/', methods=('GET', 'POST'))
+    @app.route('/index', methods=('GET', 'POST'))
     def index():
+
+        value = request.form.get('button')
+        if value is not None:
+            game.click_board(int(value))
 
         button_dict_list = []
         count = len(game.board)
@@ -27,7 +30,7 @@ def create_app(test_config = None):
             }
             button_dict_list.append(dict)
 
-        return render_template('board.html', button_dict_list = button_dict_list)
+        return render_template('board.html', button_dict_list = button_dict_list, game = game)
 
 
     return app
