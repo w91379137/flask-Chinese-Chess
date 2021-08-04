@@ -4,6 +4,7 @@ space = "　"
 x = "兵"
 class Chess():
     
+    error = ""
     board = []
     take = None
 
@@ -13,17 +14,19 @@ class Chess():
     def create_board(self):
         new_board = []
         for i in range(32):
-            if i == 0:
+            if i == 0 or i == 4:
                 new_board.append(x)
             else:
                 new_board.append(space)
         self.board = new_board
 
     def click_board(self, index):
+
+        self.error = ''
         
         if self.take == None:
             if self.board[index] == space:
-                print('不能拿')
+                self.error = f'不能拿 {index}'
             else:
                 self.take = index
         else:
@@ -32,4 +35,4 @@ class Chess():
                 self.board[self.take] = space
                 self.take = None
             else:
-                print('有東西')
+                self.error = f'有東西 {index}'
