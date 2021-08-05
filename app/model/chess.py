@@ -13,6 +13,8 @@ class Chess():
     cover = []
     take = None
 
+    winner = None
+
     def __init__(self) -> None:
         self.create_board()
         self.change_first()
@@ -38,6 +40,10 @@ class Chess():
     def click_board(self, index):
 
         self.error = ''
+
+        if self.winner != None:
+            self.error = '結束了'
+            return
         
         if self.take == None:
             if self.board[index] == space:
@@ -75,6 +81,8 @@ class Chess():
                     else:
                         self.move(index)
 
+        self.check_win()
+
     def move(self, index):
         self.board[index] = self.board[self.take]
         self.board[self.take] = space
@@ -109,3 +117,19 @@ class Chess():
         else:
             level = black.index(char)
         return is_red, level
+
+    def check_win(self):
+        is_find_red = False
+        is_find_black = False
+        for char in self.board:
+            if char != space:
+                is_red, level = self.chess_info(char)
+                if is_red:
+                    is_find_red = True
+                else:
+                    is_find_black = True
+        if not is_find_red:
+            self.winner = '黑'
+        
+        if not is_find_black:
+            self.winner = '紅'
