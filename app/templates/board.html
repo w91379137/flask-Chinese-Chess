@@ -1,6 +1,13 @@
 
 <form method="POST">
 
+    輪到:
+    {% if game.is_red_play %}
+        紅
+    {% else %}
+        黑
+    {% endif %}
+    <br>
     拿取:{{game.take}} <br>
     錯誤訊息:{{game.error}} <br>
     {% for button_dict in button_dict_list %}
