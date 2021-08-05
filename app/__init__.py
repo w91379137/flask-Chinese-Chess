@@ -22,10 +22,13 @@ def create_app(test_config = None):
         for index in range(count):
             x = index % 8
             y = (index - x) / 8
+            symbol = game.board[index]
+            if game.cover[index]:
+                symbol = "█"
             dict = {
                 "left": f"{ 50 * x + 100 }px",
                 "top": f"{ 50 * y + 100}px",
-                "symbol": game.board[index],
+                "symbol": symbol,
                 "id": index,
             }
             button_dict_list.append(dict)
