@@ -1,7 +1,9 @@
 
 
 space = "　"
-x = "兵"
+red = ['兵', '俥']
+black = ['卒', '車']
+
 class Chess():
     
     error = ""
@@ -19,8 +21,10 @@ class Chess():
         self.board = new_board
 
     def change_first(self):
-        self.board[0] = x
-        self.board[4] = x
+        self.board[0] = red[0]
+        self.board[1] = red[1]
+        self.board[2] = black[0]
+        self.board[3] = black[1]
 
     def click_board(self, index):
 
@@ -41,7 +45,19 @@ class Chess():
                 else:
                     self.error = f'不能下在 {index}'
             else:
-                self.error = f'有東西 {index}'
+                # 判斷紅黑
+                from_color_is_red, from_level = self.chess_info(self.board[self.take])
+                to_color_is_red, to_level = self.chess_info(self.board[index])
+
+                if (from_color_is_red == to_color_is_red):
+                    self.error = f'有東西 {index}'
+                else:
+                    if (from_level < to_level):
+                        self.error = f'對方比較大 {index}'
+                    else:
+                        self.board[index] = self.board[self.take]
+                        self.board[self.take] = space
+                        self.take = None
 
     def is_next(self, a, b):
         x_a, y_a = self.map(a)
@@ -59,3 +75,12 @@ class Chess():
         x = index % 8
         y = (index - x) / 8
         return x, y
+
+    def chess_info(self, char):
+        is_red = char in red
+        level = -1
+        if is_red:
+            level = red.index(char)
+        else:
+            level = black.index(char)
+        return is_red, level
