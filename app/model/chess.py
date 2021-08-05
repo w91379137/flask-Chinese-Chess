@@ -2,7 +2,9 @@
 
 space = "　"
 red = ['兵', '炮', '傌', '俥', '相', '仕', '帥']
+num = [5, 2, 2, 2, 2, 2, 1] 
 black = ['卒', '砲', '馬', '車', '象', '士', '將']
+import random
 
 class Chess():
 
@@ -18,6 +20,8 @@ class Chess():
     def __init__(self) -> None:
         self.create_board()
         self.change_first()
+        for i in range(30):
+            self.random_index()
         self.create_cover()
 
     def create_board(self):
@@ -27,14 +31,33 @@ class Chess():
         self.board = new_board
 
     def change_first(self):
+        # for i in range(7):
+        #     self.board[i] = red[i]
+        #     self.board[i+16] = black[i]
+        index = 0
         for i in range(7):
-            self.board[i] = red[i]
-            self.board[i+16] = black[i]
+            char_red = red[i]
+            char_black = black[i]
+            amount = num[i]
+            for j in range(amount):
+                # print(i, j, index)
+                self.board[index] = char_red
+                index += 1
+                self.board[index] = char_black
+                index += 1
+
+    def random_index(self):
+        a = random.randint(0, 31)
+        b = random.randint(0, 31)
+        temp = self.board[a]
+        self.board[a] = self.board[b]
+        self.board[b] = temp
 
     def create_cover(self):
         new_cover = []
         for i in range(32):
             new_cover.append(self.board[i] != space)
+            # new_cover.append(False)
         self.cover = new_cover
 
     def click_board(self, index):
