@@ -45,9 +45,7 @@ class Chess():
             if self.board[index] == space:
 
                 if self.is_next(index, self.take):
-                    self.board[index] = self.board[self.take]
-                    self.board[self.take] = space
-                    self.take = None
+                    self.move(index)
                 else:
                     self.error = f'不能下在 {index}'
             else:
@@ -61,9 +59,13 @@ class Chess():
                     if (from_level < to_level):
                         self.error = f'對方比較大 {index}'
                     else:
-                        self.board[index] = self.board[self.take]
-                        self.board[self.take] = space
-                        self.take = None
+                        self.move(index)
+
+    def move(self, index):
+        self.board[index] = self.board[self.take]
+        self.board[self.take] = space
+        self.take = None
+        self.is_red_play = not self.is_red_play
 
     def is_next(self, a, b):
         x_a, y_a = self.map(a)
