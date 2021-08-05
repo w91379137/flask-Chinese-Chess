@@ -56,8 +56,8 @@ class Chess():
     def create_cover(self):
         new_cover = []
         for i in range(32):
-            # new_cover.append(self.board[i] != space)
-            new_cover.append(False)
+            new_cover.append(self.board[i] != space)
+            # new_cover.append(False)
         self.cover = new_cover
 
     def click_board(self, index):
