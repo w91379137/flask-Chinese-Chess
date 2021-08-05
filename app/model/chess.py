@@ -1,8 +1,8 @@
 
 
 space = "　"
-red = ['兵', '俥']
-black = ['卒', '車']
+red = ['兵', '炮', '傌', '俥', '相', '仕', '帥']
+black = ['卒', '砲', '馬', '車', '象', '士', '將']
 
 class Chess():
 
@@ -25,10 +25,9 @@ class Chess():
         self.board = new_board
 
     def change_first(self):
-        self.board[0] = red[0]
-        self.board[1] = red[1]
-        self.board[2] = black[0]
-        self.board[3] = black[1]
+        for i in range(7):
+            self.board[i] = red[i]
+            self.board[i+16] = black[i]
 
     def create_cover(self):
         new_cover = []
