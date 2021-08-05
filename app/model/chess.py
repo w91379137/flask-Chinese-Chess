@@ -10,11 +10,13 @@ class Chess():
     
     error = ""
     board = []
+    cover = []
     take = None
 
     def __init__(self) -> None:
         self.create_board()
         self.change_first()
+        self.create_cover()
 
     def create_board(self):
         new_board = []
@@ -27,6 +29,12 @@ class Chess():
         self.board[1] = red[1]
         self.board[2] = black[0]
         self.board[3] = black[1]
+
+    def create_cover(self):
+        new_cover = []
+        for i in range(32):
+            new_cover.append(self.board[i] != space)
+        self.cover = new_cover
 
     def click_board(self, index):
 
