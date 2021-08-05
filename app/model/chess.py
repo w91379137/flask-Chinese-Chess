@@ -1,8 +1,8 @@
 
 
 space = "　"
-red = ['兵', '俥']
-black = ['卒', '車']
+red = ['兵', '炮', '傌', '俥', '相', '仕', '帥']
+black = ['卒', '砲', '馬', '車', '象', '士', '將']
 
 class Chess():
 
@@ -25,10 +25,9 @@ class Chess():
         self.board = new_board
 
     def change_first(self):
-        self.board[0] = red[0]
-        self.board[1] = red[1]
-        self.board[2] = black[0]
-        self.board[3] = black[1]
+        for i in range(7):
+            self.board[i] = red[i]
+            self.board[i+16] = black[i]
 
     def create_cover(self):
         new_cover = []
@@ -69,7 +68,9 @@ class Chess():
                 if (from_color_is_red == to_color_is_red):
                     self.error = f'有東西 {index}'
                 else:
-                    if (from_level < to_level):
+                    if (from_level == 0 and to_level == 6):
+                        self.move(index)
+                    elif (from_level < to_level) or (from_level == 6 and to_level == 0):
                         self.error = f'對方比較大 {index}'
                     else:
                         self.move(index)
