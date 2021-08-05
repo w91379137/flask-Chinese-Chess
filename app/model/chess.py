@@ -68,7 +68,9 @@ class Chess():
                 if (from_color_is_red == to_color_is_red):
                     self.error = f'有東西 {index}'
                 else:
-                    if (from_level < to_level):
+                    if (from_level == 0 and to_level == 6):
+                        self.move(index)
+                    elif (from_level < to_level) or (from_level == 6 and to_level == 0):
                         self.error = f'對方比較大 {index}'
                     else:
                         self.move(index)
