@@ -10,15 +10,17 @@ class Chess():
 
     def __init__(self) -> None:
         self.create_board()
+        self.change_first()
 
     def create_board(self):
         new_board = []
         for i in range(32):
-            if i == 0 or i == 4:
-                new_board.append(x)
-            else:
-                new_board.append(space)
+            new_board.append(space)
         self.board = new_board
+
+    def change_first(self):
+        self.board[0] = x
+        self.board[4] = x
 
     def click_board(self, index):
 
