@@ -43,6 +43,9 @@ class Chess():
         if self.take == None:
             if self.board[index] == space:
                 self.error = f'不能拿 {index}'
+            elif self.cover[index]:
+                self.cover[index] = False
+                self.is_red_play = not self.is_red_play
             else:
                 is_red, level = self.chess_info_number(index)
                 if (self.is_red_play == is_red):
@@ -50,8 +53,10 @@ class Chess():
                 else:
                     self.error = f'不能拿 顏色不對'
         else:
-            if self.board[index] == space:
+            if self.cover[index]:
+                self.error = f'蓋住不能走 {index}'
 
+            elif self.board[index] == space:
                 if self.is_next(index, self.take):
                     self.move(index)
                 else:
